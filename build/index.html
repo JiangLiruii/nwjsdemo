@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NWJS-demo</title>
+</head>
+<body>
+  <h1>This is one demo for application built by nwjs</h1>
+  <button onclick="nw.Window.open('http://www.baidu.com')">open default</button>
+  <button onclick="nw.Window.open('http://www.baidu.com', {
+    title: 'I Love China', // 不会生效的, 只对应用的第一个窗口有效
+    width: 100,
+    height: 100,
+    position: 'mouse',
+    focus: true
+  }, (new_window) => console.log('after new window created:', new_window))">open customer</button>
+  <button onclick="nw.Window.open('http://docs.nwjs.io/en/latest/References/Window/#windowopenurl-options-callback')">see window detail</button>
+</body>
+</html>

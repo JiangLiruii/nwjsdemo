@@ -1,0 +1,19 @@
+{
+  "name": "nw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "application:generator:win7": "node application_generator.js win",
+    "dist:nw:win7": "build --tasks win-x86 --mirror https://npm.taobao.org/mirrors/nwjs/ ./application_win",
+    "dist:nsis:win7": "cd application_win/nsis && ../../node_modules/nwjs-builder-phoenix/assets/nsis/makensis.exe demo.nsi"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "nwjs-builder-phoenix": "^1.15.0",
+    "shelljs": "^0.8.3"
+  }
+}

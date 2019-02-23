@@ -1,0 +1,38 @@
+{
+  "name": "nwjs-demo",
+  "main": "build/index.html",
+  "build": {
+    "nwVersion": "0.32.0",
+    "packed": false,
+    "nwFlavor": "sdk",
+    "mute": false,
+    "ffmpegIntegration": false,
+    "files": [
+      "build/**",
+      "package.json"
+    ],
+    "win": {
+      "productName": "nwjs-demo",
+      "companyName": "lorry ltd",
+      "fileDescription": "This is a demo",
+      "productVersion": "1.0.0",
+      "fileVersion": "1.0.0",
+      "icon": "nsis/demo.ico"
+    },
+    "nsis": {
+      "icon": "nsis/demo.ico",
+      "diffUpdaters": false
+    }
+  },
+  "user-agent": "NWDEMO%nwver %webkit_ver %osinfo",
+  "window": {
+    "title": "nwjs-demo", 
+    "width": 1200,
+    "height": 768,
+    "position": "center",
+    "resizable": true,
+    "icon": "./demo_tab.png"
+  },
+  "domain": "",
+  "chromium-args": "--enable-file-cookies --allow-running-insecure-content --ignore-certificate-errors --enable-logging --log-level=0"
+}
