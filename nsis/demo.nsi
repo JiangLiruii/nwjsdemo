@@ -37,6 +37,7 @@ VIProductVersion "${DEMO_VERSION}.0"
  VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "LegalCopyright" "Copyright (c) 2015-2019 Lorry"
  VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "FileDescription" "nwjs-demo客户端"
  VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "FileVersion" "${DEMO_VERSION}"
+ VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "ProductVersion" "${DEMO_VERSION}.0";版本号
 
 ;;;Installer Section
 Section "Install Section" InstallSection
@@ -56,32 +57,37 @@ Section "Install Section" InstallSection
   ;;Write registry
   ;Save installation path
   WriteRegStr HKCU SOFTWARE\demo "InstallDir" "$INSTDIR"
+  ;定义卸载路径变量
+  !define UNINST "Software\Microsoft\Windows\CurrentVersion\Uninstall\demo"
 
-  ;Write uninstall keys
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\demo" "DisplayName" "nwjs-demo"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\demo" "UninstallString" "$INSTDIR\uninst.exe"
+  ;Write uninstall keys, 这里是显示在控制面板的卸载程序里.
+  WriteRegStr HKCU UNINST "DisplayName" "nwjs-demo" ;应用名
+  WriteRegStr HKCU UNINST "UninstallString" "$INSTDIR\uninst.exe";卸载程序位置
+  WriteRegStr HKCU UNINST "ProductVersion" "${DEMO_VERSION}.0";版本号
+  WriteRegStr HKCU UNINST "DisplayIcon" "$INSTDIR\ jlr.ico";icon
+  WriteRegStr HKCU UNINST "Publisher" " 蒋礼锐";开发者
 
   ;Associate jlr file format 自有格式
   ;First delete any existing file extension bindings.
-  DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jlr"
+  DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jlr";
   WriteRegStr HKCU "Software\Classes\.jlr" "" "JLRFile"
   WriteRegStr HKCU "Software\Classes\JLRFile\shell\open\command" "" "$\"$INSTDIR\nwjs-demo.exe$\" $\"%1$\""
-  WriteRegStr HKCU "Software\Classes\JLRFile\DefaultIcon" "" "$INSTDIR\jlr.ico,0"
+  WriteRegStr HKCU "Software\Classes\JLRFile\DefaultIcon" "" "$INSTDIR\jlr.ico,0"; 显示 icon
 
 SectionEnd
 
 Section "Start Menu Shortcuts"
   CreateDirectory "$SMPROGRAMS\nwjs-demo"
-  CreateShortcut "$SMPROGRAMS\demo\nwjs-demo.lnk" "$INSTDIR\nwjs-demo.exe" "" "$INSTDIR\nwjs-demo.exe" 0
-  CreateShortcut "$SMPROGRAMS\demo\uninst.lnk" "$INSTDIR\uninst.exe" "" "$INSTDIR\uninst.exe" 0
+  CreateShortcut "$SMPROGRAMS\nwjs-demo\nwjs-demo.lnk" "$INSTDIR\nwjs-demo.exe" "" "$INSTDIR\nwjs-demo.exe" 0
+  CreateShortcut "$SMPROGRAMS\nwjs-demo\uninst.lnk" "$INSTDIR\uninst.exe" "" "$INSTDIR\uninst.exe" 0
 
   ; Also create desktop shortcut.
   CreateShortCut "$desktop\nwjs-demo.lnk" "$INSTDIR\nwjs-demo.exe" "" "$INSTDIR\nwjs-demo.exe" 0
 SectionEnd
 
 Section "Finish Installation" FinishInstall
-  ExecShell "" "$INSTDIR\nwjs-demo.exe"
-  SetAutoClose true
+  ExecShell "" "$INSTDIR\nwjs-demo.exe";完成之后自动打开应用
+  SetAutoClose true;是否自动关闭
 SectionEnd
 
 ;;;Uninstaller Section
@@ -90,10 +96,10 @@ Section "Uninstall"
   RMDIR /r "$INSTDIR"
 
   ;Delete shortcut in startup menu
-  Delete "$SMPROGRAMS\nwjs-demo.lnk"
-  Delete "$SMPROGRAMS\uninst.lnk"
-  RMDIR "$SMPROGRAMS\nwjs-demo"
-  Delete "$desktop\nwjs-demo.lnk"
+  Delete "$SMPROGRAMS\nwjs-demo\nwjs-demo.lnk";要全部删除应用程序和卸载程序的快捷方式才能移除掉文件夹
+  Delete "$SMPROGRAMS\nwjs-demo\uninst.lnk"
+  RMDIR "$SMPROGRAMS\nwjs-demo";移除文件夹
+  Delete "$desktop\nwjs-demo.lnk";移除桌面快捷方式
 
   ;Cleanup registry
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\demo" "DisplayName"
