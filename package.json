@@ -6,8 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "application:generator:win7": "node application_generator.js win",
+    "application:generator:mac": "node application_generator.js mac",
     "dist:nw:win7": "build --tasks win-x86 --mirror https://npm.taobao.org/mirrors/nwjs/ ./application_win",
+    "dist:nw:mac": "build --tasks mac-x64 --mirror https://npm.taobao.org/mirrors/nwjs/ ./application_mac",
     "dist:nsis:win7": "cd application_win/nsis && ../../node_modules/nwjs-builder-phoenix/assets/nsis/makensis.exe demo.nsi"
+
   },
   "author": "",
   "license": "ISC",

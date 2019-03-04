@@ -1,0 +1,25 @@
+{
+  "name": "nwjs-demo",
+  "main": "build/index.html",
+  "build": {
+    "nwVersion": "0.32.0",
+    "packed": false,
+    "nwFlavor": "sdk",
+    "mute": false,
+    "ffmpegIntegration": false,
+    "files": [
+      "build/**",
+      "package.json"
+    ]
+  },
+  "user-agent": "NWDEMO%nwver %webkit_ver %osinfo",
+  "window": {
+    "title": "nwjs-demo", 
+    "width": 1200,
+    "height": 768,
+    "position": "center",
+    "resizable": true
+  },
+  "domain": "",
+  "chromium-args": "--enable-file-cookies --allow-running-insecure-content --ignore-certificate-errors --enable-logging --log-level=0"
+}

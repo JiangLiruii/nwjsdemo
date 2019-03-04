@@ -33,6 +33,13 @@ if (platform == 'win') {
   shell.cp('-R', 'nsis/', 'application_xp/');
   generate_nsis_file('application_xp/nsis/demo.nsi');
   fs.writeFileSync('application_xp/package.json', JSON.stringify(new_package_json, null, 2));
+} else if (platform == 'mac') {
+  var new_package_json = JSON.parse(fs.readFileSync('./application/mac_package.json', 'utf8'));
+  new_package_json.version = version_json.current;
+  shell.rm('-rf', 'application_mac');
+  shell.mkdir('application_mac');
+  shell.cp('-R', 'build/', 'application_mac/');
+  fs.writeFileSync('application_mac/package.json', JSON.stringify(new_package_json, null, 2));
 }
 // 脚本更新nsis 的 version
 function generate_nsis_file(path) {
